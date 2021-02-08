@@ -1,0 +1,58 @@
+/*------------------------------*/
+/*--Section Name----------------*/
+/*------------------------------*/
+.block-8-scr {
+    --space-between-blocks: 2rem;
+    --space-between-blocks-small-screens: 0rem;
+    --block-background: white;
+    --block-text-color: var(--text-primary);
+    background: var(--block-background);
+    color: var(--block-text-color)
+  }
+  
+  .block-8-scr__li {
+    font-size: 1rem;
+    font-weight: 600;
+    opacity: .9;
+    margin-bottom: .8rem
+  }
+  
+  .block-8-scr__li:last-child {
+    margin-bottom: 0
+  }
+  
+  .plan-features__icon {
+    width: 1.1rem;
+    height: 1.1rem;
+    color: #33c58d
+  }
+  
+  .block-8-scr__li-icon {
+    color: #33c58d;
+    transform: scale(1.5)
+  }
+  
+  .block-8-scr__img {
+    position: relative;
+    z-index: 1;
+    border-radius: 5px;
+    box-shadow: 0 10px 36px 0 rgba(0, 0, 0, .1)
+  }
+  
+  .block-8-scr-scr-dots-svg {
+    color: var(--primary);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 250px;
+    height: 150px;
+    transform: translate(-38px, 36px);
+    clip-path: polygon(24% 62%, 100% 62%, 100% 100%, 0 100%, 0 0, 24% 0)
+  }
+  
+  @media (min-width:992px) {
+    .block-8-scr-scr-dots-svg {
+      transform: translate(-38px, 36px);
+      clip-path: polygon(24% 62%, 100% 62%, 100% 100%, 0 100%, 0 0, 24% 0)
+    }
+  }
