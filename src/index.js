@@ -6,10 +6,11 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import reducer, { initialState } from './reducer';
 import { StateProvider } from './StateProvider';
+import { composeWithDevTools } from 'redux-devtools-extension'
 
 ReactDOM.render(
   <React.StrictMode>
-    <StateProvider initialState={initialState} reducer={reducer}>
+    <StateProvider initialState={initialState} reducer={reducer} composeWithDevTools={composeWithDevTools}>
       <App />
     </StateProvider>
   </React.StrictMode>,

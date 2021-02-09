@@ -1,15 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import Select from 'react-select';
-import { withRouter } from "react-router";
 import UserApiService from '../../../services/user-api-service'
 import DogApiService from '../../../services/dog-api-service'
+import { useStateValue } from '../../../StateProvider'
+import { updateDog } from '../../../actions'
 
 const AdvisorFormPage1 = () => {
-    
+    const [{ dog }, dispatch] = useStateValue()
 
     const [dogName, setDogName] = useState('');
     const [city, setCity] = useState('');
-    const [cityValue, setCityValue] = useState('');
     const [email, setEmail] = useState('');
     const [user_id, setUserId] = useState('');
     const [nameError, setNameError] = useState('');
@@ -20,12 +20,16 @@ const AdvisorFormPage1 = () => {
     useEffect(() => {
         // Update the document title using the browser API
         window.scrollTo(0, 0);
+        debugger
+        updateDog()
       });
 
    
 
     
-
+    const handleChange = (city) => {
+        setCity(city)
+    }
   
     const validateEmail = (email) => {
      
@@ -95,27 +99,27 @@ const AdvisorFormPage1 = () => {
         // Check if user exists: if they do, run a patch. If they don't, create new account
         console.log(newUser)
         
-        useEffect(() => {
+      
             UserApiService.createUser(newUser)
                 .then(res => {
                     setUserId(res.id)
+                    createNewDog(res.id)
                 })
-        },
-            createNewDog()
-        )
+                
+       
      
        
     }}
 
-    const createNewDog = () => {
+    const createNewDog = (id) => {
 
         const { history } = this.props;
 
         const newDog = {
-            name: this.state.dog_name.toLowerCase(),
-            city: this.state.city.value,
-            user_id: this.state.user_id,
-            email: this.state.email
+            name: dogName.toLowerCase(),
+            city: city.value,
+            user_id: id,
+            email: email
         }
 
         DogApiService.createDog(newDog)
@@ -177,7 +181,7 @@ const AdvisorFormPage1 = () => {
                                       <input
                                           type="text"
                                           name="dog-name"
-                                          value={this.state.dog_name}
+                                          value={dogName}
                                           placeholder="Dog's Name"
                                           onChange={(e) => setDogName(e.target.value)}
                                       >
@@ -194,7 +198,7 @@ const AdvisorFormPage1 = () => {
                                       <input
                                           type="email"
                                           name="person-email"
-                                          value={this.state.person_email}
+                                          value={email}
                                           placeholder="Email"
                                           onChange={(e) => setEmail(e.target.value.toLowerCase())}
                                           required
@@ -215,7 +219,7 @@ const AdvisorFormPage1 = () => {
                                           className="basic-single"
                                           classNamePrefix="select"
                                           placeholder="Select your city"
-                                          onChange={setCity}
+                                          onChange={handleChange}
                                           required
                                       />
                                       {cityError && <span className="validation-error">{cityError}</span>}

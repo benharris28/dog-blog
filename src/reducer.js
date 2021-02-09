@@ -1,18 +1,8 @@
 import DogApiService from './services/dog-api-service'
 
-const dogId = localStorage.getItem('dogId') ? localStorage.getItem('dogId') : null
-
-let dogFromStorage;
-
-if(dogId) {
-  DogApiService.getDogById(dogId)
-  .then(res => dogFromStorage = res[0])
-  .catch(err => console.log(err))
-} else { dogFromStorage = {} }
-
 
 export const initialState = {
-    dog: dogFromStorage,
+    dog: {},
 
 };
 
@@ -24,6 +14,11 @@ const reducer = (state = { progress: ''}, action) => {
       return {
         ...state,
         progress: action.payload
+      }
+    case 'UPDATE_DOG':
+      return {
+        ...state,
+        dog: action.payload
       }
     default:
       return state;
