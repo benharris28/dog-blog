@@ -1,13 +1,17 @@
 import React, {useState, useEffect} from 'react';
+import { useHistory } from 'react-router'
 import Select from 'react-select';
 import UserApiService from '../../../services/user-api-service'
 import DogApiService from '../../../services/dog-api-service'
 import { useStateValue } from '../../../StateProvider'
-import { updateDog } from '../../../actions'
+import { updateDog, updateProgress } from '../../../actions'
 
 const AdvisorFormPage1 = () => {
-    const [{ dog }, dispatch] = useStateValue()
-
+    const history = useHistory();
+    const [{ dog, progress }, dispatch] = useStateValue()
+    
+    
+    
     const [dogName, setDogName] = useState('');
     const [city, setCity] = useState('');
     const [email, setEmail] = useState('');
@@ -20,11 +24,44 @@ const AdvisorFormPage1 = () => {
     useEffect(() => {
         // Update the document title using the browser API
         window.scrollTo(0, 0);
-        debugger
-        updateDog()
-      });
+        
+        //updateProgress(10)
 
-   
+        dispatch({
+            type: 'UPDATE_PROGRESS',
+            payload: 30
+        })
+
+        const dogId = localStorage.getItem('dogId') ? localStorage.getItem('dogId') : null
+
+        dispatch({
+            type: 'UPDATE_DOG',
+            payload: Number(dogId)
+        })
+
+        updateDog()
+
+        
+      }, []);
+
+    
+      const updateDog = () => {
+        // const dogId = localStorage.getItem('dogId') ? localStorage.getItem('dogId') : null
+         const dogId = Number(85)
+         
+         if(dogId) {
+         DogApiService.getDogById(dogId)
+         .then(res => {
+                 console.log(res)
+                 dispatch({ type: 'UPDATE_DOG', payload: res })
+             
+         })
+         .catch(err => console.log(err))
+         } 
+     
+     
+     }
+
 
     
     const handleChange = (city) => {
@@ -113,7 +150,7 @@ const AdvisorFormPage1 = () => {
 
     const createNewDog = (id) => {
 
-        const { history } = this.props;
+        
 
         const newDog = {
             name: dogName.toLowerCase(),
@@ -128,7 +165,7 @@ const AdvisorFormPage1 = () => {
 
                     DogApiService.createSelections(res.id)
                     
-                    history.push('/foodadvisor/form/pet')
+                    history.push('/foodadvisor/page-two')
                                     })
 
        

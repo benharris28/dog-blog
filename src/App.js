@@ -25,6 +25,11 @@ function App() {
         path="/foodadvisor/page-one"
         component={AdvisorFormPage1} 
       />
+       <Route 
+        exact
+        path="/foodadvisor/page-two"
+        component={AdvisorFormPage2} 
+      />
    
     
     </Router>
