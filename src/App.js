@@ -4,6 +4,7 @@ import LandingPage from './routes/LandingPage'
 import NutritionLandingPage from './routes/categories/nutrition/NutritionLandingPage'
 import AdvisorFormPage1 from './routes/categories/nutrition/AdvisorFormPage1'
 import AdvisorFormPage2 from './routes/categories/nutrition/AdvisorFormPage2'
+import AdvisorFormPage3 from './routes/categories/nutrition/AdvisorFormPage3'
 import Header from './components/Header'
 
 function App() {
@@ -29,6 +30,11 @@ function App() {
         exact
         path="/foodadvisor/page-two"
         component={AdvisorFormPage2} 
+      />
+       <Route 
+        exact
+        path="/foodadvisor/page-three"
+        component={AdvisorFormPage3} 
       />
    
     

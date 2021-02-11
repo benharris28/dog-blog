@@ -1,13 +1,18 @@
-import React from 'react';
-import Select from 'react-select';
-import { withRouter } from "react-router";
-import UserApiService from '../../../../../services/user-api-service'
-import DogApiService from '../../../../../services/dog-api-service'
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router'
+import { useStateValue } from '../../../StateProvider'
+import DogApiService from '../../../services/dog-api-service'
 import * as dayjs from 'dayjs'
+import { updateDog, updateProgress } from '../../../actions'
 
-class DogFormPageThree extends React.Component {
-    state = {
+const AdvisorFormPage3 = () => {
+   
 
+    const history = useHistory();
+
+    const [{ dog, progress }, dispatch] = useStateValue()
+
+    const [state, setState] = useState({
         progress: '10',
         dog_name: '',
         email: '',
@@ -15,42 +20,44 @@ class DogFormPageThree extends React.Component {
         body_position: '',
         dog_profile: '',
         bodyPositionError: ''
+    })
 
-
-      
-            
-    }
-
-    componentDidMount = () => {
+    useEffect(() => {
+        // Update the document title using the browser API
         window.scrollTo(0, 0);
-        
+
         const dogId = localStorage.getItem('dogId')
 
-        this.setState({
-            current_dog: dogId,
-            progress: 50
-        },
+        setState({ ...state, current_dog: dogId })
 
-            () => DogApiService.getDogById(this.state.current_dog)
-                .then(res => {
-                    this.setState({
-                        dog_profile: res
-                    })
-                }))
+        updateDog()
+    }, []);
+
+    
+    const updateDog = () => {
+        // const dogId = localStorage.getItem('dogId') ? localStorage.getItem('dogId') : null
+         const dogId = Number(localStorage.getItem('dogId'))
+         
+         if(dogId) {
+         DogApiService.getDogById(dogId)
+         .then(res => {
+                 console.log(res)
+                 dispatch({ type: 'UPDATE_DOG', payload: res })
+             
+         })
+         .catch(err => console.log(err))
+         } 
+     
+     
+     }
 
 
-
-
-
-
-    }
-
-    categorizeDog = () => {
+   
+    const categorizeDog = () => {
         // Check the day
-        const { dog_profile, body_position } = this.state;
 
         const today = dayjs();
-        const birthday = dayjs(this.state.dog_profile.birthday)
+        const birthday = dayjs(dog.birthday)
         const age = today.diff(birthday, 'month')
 
         let multiplier;
@@ -63,27 +70,27 @@ class DogFormPageThree extends React.Component {
             multiplier = 2
         }
 
-        if (age > 12 && body_position === 'underweight' && dog_profile.neutered === true) {
+        if (age > 12 && state.body_position === 'underweight' && dog.neutered === true) {
             multiplier = 1.6
         }
 
-        if (age > 12 && body_position === 'ideal-weight' && dog_profile.neutered === true) {
+        if (age > 12 && state.body_position === 'ideal-weight' && dog.neutered === true) {
             multiplier = 1.5
         }
 
-        if (age > 12 && body_position === 'overweight' && dog_profile.neutered === true) {
+        if (age > 12 && state.body_position === 'overweight' && dog.neutered === true) {
             multiplier = 1.0
         }
 
-        if (age > 12 && body_position === 'underweight' && dog_profile.neutered === false) {
+        if (age > 12 && state.body_position === 'underweight' && dog.neutered === false) {
             multiplier = 1.8
         }
 
-        if (age > 12 && body_position === 'ideal-weight' && dog_profile.neutered === false) {
+        if (age > 12 && state.body_position === 'ideal-weight' && dog.neutered === false) {
             multiplier = 1.6
         }
 
-        if (age > 12 && body_position === 'overweight' && dog_profile.neutered === false) {
+        if (age > 12 && state.body_position === 'overweight' && dog.neutered === false) {
             multiplier = 1.2
         }
 
@@ -92,17 +99,18 @@ class DogFormPageThree extends React.Component {
 
 
 
-    handleBodyPosition = (e) => {
-        this.setState({
+    const handleBodyPosition = (e) => {
+        setState({
+            ...state,
             body_position: e.target.value
         })
     }
 
 
-    handleValidation = () => {
+    const handleValidation = () => {
         let formIsValid = true;
 
-        if (!this.state.body_position) {
+        if (!state.body_position) {
             formIsValid = false;
             this.setState({
                 bodyPositionError: 'Please select an option'
@@ -115,30 +123,30 @@ class DogFormPageThree extends React.Component {
         return formIsValid
     }
 
-    handleSubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault()
 
         if (this.handleValidation()) {
 
-            const { history } = this.props;
+     
 
             // calculate multiple
-            const { body_position } = this.state;
+            const { body_position } = state;
 
-            const multiplier = this.categorizeDog()
-            const calorie_requirement = this.state.dog_profile.rer * multiplier
+            const multiplier = categorizeDog()
+            const calorie_requirement = dog.rer * multiplier
 
             // Patch results
 
 
             const updatedDog = {
-                body_position: this.state.body_position,
+                body_position: state.body_position,
                 rer_multiple: multiplier,
                 calorie_requirement: calorie_requirement
             }
 
             // patch dog profile
-            DogApiService.updateDog(updatedDog, this.state.current_dog)
+            DogApiService.updateDog(updatedDog, dog.id)
                 .then(res => {
                     history.push('/foodadvisor/form/issues')
                 })
@@ -151,26 +159,18 @@ class DogFormPageThree extends React.Component {
         }
     }
 
-    render() {
-        const multiplier = this.categorizeDog()
+  
+        const multiplier = categorizeDog()
 
-        const calorie_requirement = this.state.dog_profile.rer * multiplier
+        const calorie_requirement = state.dog_profile.rer * multiplier
 
 
         const today = dayjs();
-        const birthday = dayjs(this.state.dog_profile.birthday)
+        const birthday = dayjs(state.dog_profile.birthday)
         const age = today.diff(birthday, 'month')
 
-        console.log(this.state)
+   
 
-        const { match, location, history } = this.props;
-        const { start_form_open, form_page_one, form_page_two, form_page_three, form_page_four } = this.state;
-
-        const options = [
-            { value: 'golden-retriever', label: 'Golden Retriever' },
-            { value: 'bulldog', label: 'Bulldog' },
-
-        ]
 
 
 
@@ -201,7 +201,7 @@ class DogFormPageThree extends React.Component {
 
 
                                             <div className="flex-container space-evenly">
-                                                <label className={this.state.body_position === "underweight" ? "test-label checked-option" : "test-label"} htmlFor="underweight">
+                                                <label className={state.body_position === "underweight" ? "test-label checked-option" : "test-label"} htmlFor="underweight">
                                                     <div className="body-position-icon-box">
                                                         <img className="body-position-image" src="https://res.cloudinary.com/dhkmle6ei/image/upload/v1607484912/Screen_Shot_2020-12-08_at_10.34.05_PM_rsr1pu.png" />
                                                     </div>
@@ -209,7 +209,7 @@ class DogFormPageThree extends React.Component {
                                                     <p className="body-position-title">Underweight</p>
                                                     <p>Ribs very visible</p>
                                                 </label>
-                                                <label className={this.state.body_position === "ideal-weight" ? "test-label checked-option" : "test-label"} htmlFor="ideal-weight">
+                                                <label className={state.body_position === "ideal-weight" ? "test-label checked-option" : "test-label"} htmlFor="ideal-weight">
                                                     <div className="body-position-icon-box">
                                                         <img className="body-position-image" src="https://res.cloudinary.com/dhkmle6ei/image/upload/v1607484912/Screen_Shot_2020-12-08_at_10.33.31_PM_rc8aii.png" />
                                                     </div>
@@ -217,7 +217,7 @@ class DogFormPageThree extends React.Component {
                                                     <p className="body-position-title">Ideal Weight</p>
                                                     <p>Ribs very visible</p>
                                                 </label>
-                                                <label className={this.state.body_position === "overweight" ? "test-label checked-option" : "test-label"} htmlFor="overweight">
+                                                <label className={state.body_position === "overweight" ? "test-label checked-option" : "test-label"} htmlFor="overweight">
                                                     <div className="body-position-icon-box">
                                                         <img className="body-position-image" src="https://res.cloudinary.com/dhkmle6ei/image/upload/v1607484912/Screen_Shot_2020-12-08_at_10.33.50_PM_nqr25v.png" />
                                                     </div>
@@ -236,8 +236,8 @@ class DogFormPageThree extends React.Component {
                                                     name="underweight"
                                                     value="underweight"
                                                     id="underweight"
-                                                    onChange={this.handleBodyPosition}
-                                                    checked={this.state.body_position === "underweight" ? true : false} />
+                                                    onChange={handleBodyPosition}
+                                                    checked={state.body_position === "underweight" ? true : false} />
 
                                                 <input
                                                     type="radio"
@@ -245,8 +245,8 @@ class DogFormPageThree extends React.Component {
                                                     name="ideal-weight"
                                                     id="ideal-weight"
                                                     value="ideal-weight"
-                                                    onChange={this.handleBodyPosition}
-                                                    checked={this.state.body_position === "ideal-weight" ? true : false} />
+                                                    onChange={handleBodyPosition}
+                                                    checked={state.body_position === "ideal-weight" ? true : false} />
 
                                                 <input
                                                     type="radio"
@@ -254,8 +254,8 @@ class DogFormPageThree extends React.Component {
                                                     name="overweight"
                                                     value="overweight"
                                                     id="overweight"
-                                                    onChange={this.handleBodyPosition}
-                                                    checked={this.state.body_position === "overweight" ? true : false} />
+                                                    onChange={handleBodyPosition}
+                                                    checked={state.body_position === "overweight" ? true : false} />
                                             </div>
 
                               
@@ -264,7 +264,7 @@ class DogFormPageThree extends React.Component {
 
                                        
                                             <button className="landing-button"
-                                                onClick={this.handleSubmit}>
+                                                onClick={handleSubmit}>
                                                 Next
                                     </button>
                                    
@@ -285,7 +285,7 @@ class DogFormPageThree extends React.Component {
             </div>
         )
 
-    }
+    
 }
 
-export default withRouter(DogFormPageThree);
+export default AdvisorFormPage3;
