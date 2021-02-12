@@ -1,13 +1,15 @@
 import React from 'react';
-import Select from 'react-select';
-import { withRouter } from "react-router";
-import UserApiService from '../../../../../services/user-api-service'
-import DogApiService from '../../../../../services/dog-api-service'
+import DogApiService from '../../../services/dog-api-service'
 import * as dayjs from 'dayjs'
 
-class DogFormPageFour extends React.Component {
-    state = {
-      
+const AdvisorFormPage4 = () => {
+
+
+    const history = useHistory();
+
+    const [{ dog, progress }, dispatch] = useStateValue()
+
+    const [state, setState] = useState({
         progress: '10',
         dog_name: '',
         city: '',
@@ -34,48 +36,54 @@ class DogFormPageFour extends React.Component {
         pork_allergy: {label: "pork allergy", value: false, attribute: '23'},
         current_dog: '',
         dog_profile: ''
+    })
 
-
-    }
-
-    componentDidMount = () => {
+    useEffect(() => {
+        // Update the document title using the browser API
         window.scrollTo(0, 0);
 
         const dogId = localStorage.getItem('dogId')
 
-        this.setState({
-            current_dog: dogId,
-            progress: 50
-        }, 
-        
-        () => DogApiService.getDogById(this.state.current_dog)
-        .then(res => {
-            this.setState({
-                dog_profile: res
-            })
-        }))
+        setState({ ...state, current_dog: dogId })
 
-       
+        updateDog()
+    }, []);
 
-      
-        
-       
-    }
+    
+    const updateDog = () => {
+        // const dogId = localStorage.getItem('dogId') ? localStorage.getItem('dogId') : null
+         const dogId = Number(localStorage.getItem('dogId'))
+         
+         if(dogId) {
+         DogApiService.getDogById(dogId)
+         .then(res => {
+                 console.log(res)
+                 dispatch({ type: 'UPDATE_DOG', payload: res })
+             
+         })
+         .catch(err => console.log(err))
+         } 
+     
+     
+     }
+
 
 
     
 
-    handleIssues = (event) => {
+    const handleIssues = (event) => {
         const item = event.target.name
         const stateName = event.target.id
         const updatedCheck = !!event.target.checked
-        this.setState({ [stateName]: {"label": item, "value": updatedCheck }});
+        setState({ 
+            ...state,
+            [stateName]: {"label": item, "value": updatedCheck }});
     }
 
 
    
     createAttributes = () => {
-        const { dog_profile } = this.state
+      
         
         const canada_cities = [1,5]
         const us_cities = [2,3,4]
@@ -85,7 +93,7 @@ class DogFormPageFour extends React.Component {
 
         // Lifestage
         const today = dayjs();
-        const birthday = dayjs(this.state.dog_profile.birthday)
+        const birthday = dayjs(dog.birthday)
         const age = today.diff(birthday,'month')
 
 
@@ -109,65 +117,65 @@ class DogFormPageFour extends React.Component {
 
         // Weight
 
-        if (dog_profile.body_position === "underweight") {
+        if (dog.body_position === "underweight") {
             attributes.push(7)
         }
 
-        if (dog_profile.body_position === "ideal-weight") {
+        if (dog.body_position === "ideal-weight") {
             attributes.push(8)
         }
 
-        if (dog_profile.body_position === "overweight") {
+        if (dog.body_position === "overweight") {
             attributes.push(9)
         }
 
 
         // Issues
 
-        if (dog_profile) {
+        if (dog) {
             attributes.push(13)
         }
 
-        if (this.state.environment_allergies.value === true) {
+        if (state.environment_allergies.value === true) {
             attributes.push(14)
         }
 
-        if (this.state.joint_pain.value === true) {
+        if (state.joint_pain.value === true) {
             attributes.push(15)
         }
 
-        if (this.state.skin.value === true) {
+        if (state.skin.value === true) {
             attributes.push(17)
         }
 
-        if (this.state.grain_sensitive.value === true) {
+        if (state.grain_sensitive.value === true) {
             attributes.push(18)
         }
 
-        if (this.state.gas.value === true) {
+        if (state.gas.value === true) {
             attributes.push(19)
         }
 
-        if (this.state.diarrhea.value === true) {
+        if (state.diarrhea.value === true) {
             attributes.push(20)
         }
 
-        if (this.state.beef_allergy.value === true) {
+        if (state.beef_allergy.value === true) {
             attributes.push(21)
         }
 
-        if (this.state.chicken_allergy.value === true) {
+        if (state.chicken_allergy.value === true) {
             attributes.push(22)
         }
 
         
 
-        if (this.state.pork_allergy.value === true) {
+        if (state.pork_allergy.value === true) {
             attributes.push(23)
         }
 
 
-        if (this.state.chews_paws.value === true) {
+        if (state.chews_paws.value === true) {
             attributes.push(25)
         }
 
@@ -181,15 +189,15 @@ class DogFormPageFour extends React.Component {
 
         
 
-        if (this.state.anxiety.value === true) {
+        if (state.anxiety.value === true) {
             attributes.push(27)
         }
 
-        if (us_cities.includes(this.state.dog_profile.city)) {
+        if (us_cities.includes(dog.city)) {
             attributes.push(28)
         }
 
-        if (canada_cities.includes(this.state.dog_profile.city)) {
+        if (canada_cities.includes(dog.city)) {
             attributes.push(29)
         }
 
@@ -202,18 +210,16 @@ class DogFormPageFour extends React.Component {
     }
 
 
-    handleSubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault()
 
         
-  
-        const { history } = this.props;
 
         // create attributes
 
-        const attributes = this.createAttributes()
+        const attributes = createAttributes()
   
-        const issueList =  this.mapIssues()
+        const issueList =  mapIssues()
         
         console.log(issueList)
         
@@ -262,9 +268,8 @@ class DogFormPageFour extends React.Component {
         return issueList
       }
 
-    render() {
-        console.log(this.state)
-      console.log(this.state.anxiety.label)
+ 
+      
 
         const issues = this.mapIssues()
         const issueJson = {
@@ -273,13 +278,11 @@ class DogFormPageFour extends React.Component {
 
 
         const issueTest = JSON.stringify(issueJson)
-        console.log(issueTest)
-        console.log(issues)
+ 
 
         const attributeTest = this.createAttributes()
         console.log(attributeTest)
-        const { match, location, history } = this.props;
-        const { start_form_open, form_page_one, form_page_two, form_page_three, form_page_four } = this.state;
+
 
        
     
@@ -570,7 +573,7 @@ class DogFormPageFour extends React.Component {
             </div>
         )
 
-    }
+    
 }
 
-export default withRouter(DogFormPageFour);
+export default AdvisorFormPage4;

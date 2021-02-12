@@ -3,7 +3,6 @@ import { useHistory } from 'react-router'
 import { useStateValue } from '../../../StateProvider'
 import DogApiService from '../../../services/dog-api-service'
 import * as dayjs from 'dayjs'
-import { updateDog, updateProgress } from '../../../actions'
 
 const AdvisorFormPage3 = () => {
    
@@ -112,7 +111,8 @@ const AdvisorFormPage3 = () => {
 
         if (!state.body_position) {
             formIsValid = false;
-            this.setState({
+            setState({
+                ...state,
                 bodyPositionError: 'Please select an option'
             })
         }
@@ -126,7 +126,7 @@ const AdvisorFormPage3 = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        if (this.handleValidation()) {
+        if (handleValidation()) {
 
      
 
@@ -159,15 +159,6 @@ const AdvisorFormPage3 = () => {
         }
     }
 
-  
-        const multiplier = categorizeDog()
-
-        const calorie_requirement = state.dog_profile.rer * multiplier
-
-
-        const today = dayjs();
-        const birthday = dayjs(state.dog_profile.birthday)
-        const age = today.diff(birthday, 'month')
 
    
 
