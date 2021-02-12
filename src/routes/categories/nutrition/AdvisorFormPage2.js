@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router'
+import { useStateValue } from '../../../StateProvider'
 import Select from 'react-select';
 import DogApiService from '../../../services/dog-api-service'
 import * as dayjs from 'dayjs'
@@ -7,8 +8,11 @@ import * as dayjs from 'dayjs'
 const AdvisorFormPage2 = () => {
     const history = useHistory();
 
+    const [{ dog, progress }, dispatch] = useStateValue()
+
     const [state, setState] = useState({
         progress: '10',
+        dog_breed: '',
         dog_year: '',
         dog_month: '',
         dog_weight: '',
@@ -30,7 +34,26 @@ const AdvisorFormPage2 = () => {
         const dogId = localStorage.getItem('dogId')
 
         setState({ ...state, current_dog: dogId })
+
+        updateDog()
     }, []);
+
+    const updateDog = () => {
+        // const dogId = localStorage.getItem('dogId') ? localStorage.getItem('dogId') : null
+         const dogId = Number(localStorage.getItem('dogId'))
+         
+         if(dogId) {
+         DogApiService.getDogById(dogId)
+         .then(res => {
+                 console.log(res)
+                 dispatch({ type: 'UPDATE_DOG', payload: res })
+             
+         })
+         .catch(err => console.log(err))
+         } 
+     
+     
+     }
 
     // These functions update state with values from the form
 
@@ -99,7 +122,7 @@ const AdvisorFormPage2 = () => {
 
 
 
-        if (!state.monthValue) {
+        if (!state.dog_month) {
             formIsValid = false;
             setState({
                 ...state,
@@ -157,7 +180,7 @@ const AdvisorFormPage2 = () => {
             // patch dog profile and move to next page in form
             DogApiService.updateDog(updatedDog, state.current_dog)
                 .then(res => {
-                    history.push('/foodadvisor/form/body-position')
+                    history.push('/foodadvisor/page-three')
                 })
 
         }

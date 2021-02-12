@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router'
+import { useStateValue } from '../../../StateProvider'
 import DogApiService from '../../../services/dog-api-service'
 import * as dayjs from 'dayjs'
 
@@ -81,8 +83,9 @@ const AdvisorFormPage4 = () => {
     }
 
 
-   
-    createAttributes = () => {
+   // Want to move this function to a separate file to clean up
+   // Not sure how to access context properly
+    const createAttributes = () => {
       
         
         const canada_cities = [1,5]
@@ -152,7 +155,7 @@ const AdvisorFormPage4 = () => {
             attributes.push(18)
         }
 
-        if (state.gas.value === true) {
+        if (state.value === true) {
             attributes.push(19)
         }
 
@@ -209,11 +212,15 @@ const AdvisorFormPage4 = () => {
         
     }
 
+    const attributeTest = createAttributes()
+    console.log(attributeTest)
 
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        
+        // Display loading screen (need help with a setTimeout implementation)
+
+     
 
         // create attributes
 
@@ -229,30 +236,35 @@ const AdvisorFormPage4 = () => {
         }
   
         // patch dog profile
-        DogApiService.updateDog(updatedDog, this.state.current_dog)
+        DogApiService.updateDog(updatedDog, dog.id)
           .then(res => {
-              this.props.handleSubmit()
+             history.push('/foodadvisor/results')
           })
   
-        // Forward to Form page three
+        // Forward to results
+
+
+
           
       }
 
-      mapIssues = () => {
+      const mapIssues = () => {
         let issueList = []
         
+        // Pulls in issue objects into one array, loops through them to check if the values are true
+        // Push true values to issues Array
         const issueArray = [
-            this.state.environment_allergies, 
-            this.state.chews_paws, 
-            this.state.skin,
-            this.state.anxiety,
-            this.state.joint_pain,
-            this.state.chicken_allergy,
-            this.state.beef_allergy,
-            this.state.pork_allergy,
-            this.state.pork_allergy,
-            this.state.diarrhea,
-            this.state.grain_sensitive,
+            state.environment_allergies, 
+            state.chews_paws, 
+            state.skin,
+            state.anxiety,
+            state.joint_pain,
+            state.chicken_allergy,
+            state.beef_allergy,
+            state.pork_allergy,
+            state.pork_allergy,
+            state.diarrhea,
+            state.grain_sensitive,
           
 
         ]
@@ -271,20 +283,12 @@ const AdvisorFormPage4 = () => {
  
       
 
-        const issues = this.mapIssues()
-        const issueJson = {
-            issue: issues
-        }
+   
+        
 
+  
 
-        const issueTest = JSON.stringify(issueJson)
- 
-
-        const attributeTest = this.createAttributes()
-        console.log(attributeTest)
-
-
-       
+      
     
 
 
@@ -294,8 +298,8 @@ const AdvisorFormPage4 = () => {
                 <div style={{ margin: "auto" }} className="step-header">
                             <p className="step-heading">Step 4 of 6</p>
                         </div>
-                        <h2 className="section-heading">We'll only select foods that {this.state.dog_profile.name} will thrive on</h2>
-                        <p className="section-subheading">Are there any issues that {this.state.dog_profile.name} is struggling with?</p>
+                        <h2 className="section-heading">We'll only select foods that {dog.name} will thrive on</h2>
+                        <p className="section-subheading">Are there any issues that {dog.name} is struggling with?</p>
                         <p>Select any that apply</p>
 
             <div className="food-form-container" style={{marginTop: 20}}>
@@ -306,7 +310,7 @@ const AdvisorFormPage4 = () => {
 
                                 <div className="issue-box">
                                 <label htmlFor="environment_allergies">
-                                    <div className={this.state.environment_allergies.value === true? "issue-button checked-issue" : "issue-button"}>
+                                    <div className={state.environment_allergies.value === true? "issue-button checked-issue" : "issue-button"}>
                                     
                                                 Environment Allergies
                                             
@@ -314,7 +318,7 @@ const AdvisorFormPage4 = () => {
                                     </label>
 
                                     <label htmlFor="chews_paws">
-                                    <div className={this.state.chews_paws.value === true? "issue-button checked-issue" : "issue-button"}>
+                                    <div className={state.chews_paws.value === true? "issue-button checked-issue" : "issue-button"}>
                                     
                                                 Chews Paws
                                             
@@ -322,7 +326,7 @@ const AdvisorFormPage4 = () => {
                                     </label>
 
                                     <label htmlFor="skin">
-                                    <div className={this.state.skin.value === true? "issue-button checked-issue" : "issue-button"}>
+                                    <div className={state.skin.value === true? "issue-button checked-issue" : "issue-button"}>
                                     
                                                 Dry Skin and Coat
                                             
@@ -330,7 +334,7 @@ const AdvisorFormPage4 = () => {
                                     </label>
 
                                     <label htmlFor="joint_pain">
-                                    <div className={this.state.joint_pain.value === true? "issue-button checked-issue" : "issue-button"}>
+                                    <div className={state.joint_pain.value === true? "issue-button checked-issue" : "issue-button"}>
                                     
                                                 Joint Pain
                                             
@@ -338,7 +342,7 @@ const AdvisorFormPage4 = () => {
                                     </label>
 
                                     <label htmlFor="anxiety">
-                                    <div className={this.state.anxiety.value === true? "issue-button checked-issue" : "issue-button"}>
+                                    <div className={state.anxiety.value === true? "issue-button checked-issue" : "issue-button"}>
                                     
                                                 Anxiety
                                             
@@ -346,7 +350,7 @@ const AdvisorFormPage4 = () => {
                                     </label>
 
                                     <label htmlFor="diarrhea">
-                                    <div className={this.state.diarrhea.value === true? "issue-button checked-issue" : "issue-button"}>
+                                    <div className={state.diarrhea.value === true? "issue-button checked-issue" : "issue-button"}>
                                     
                                                 Diarrhea
                                             
@@ -354,7 +358,7 @@ const AdvisorFormPage4 = () => {
                                     </label>
 
                                     <label htmlFor="gas">
-                                    <div className={this.state.gas.value === true? "issue-button checked-issue" : "issue-button"}>
+                                    <div className={state.gas.value === true? "issue-button checked-issue" : "issue-button"}>
                                     
                                                Passes Gas
                                             
@@ -363,7 +367,7 @@ const AdvisorFormPage4 = () => {
 
 
                                     <label htmlFor="chicken_allergy">
-                                    <div className={this.state.chicken_allergy.value === true? "issue-button checked-issue" : "issue-button"}>
+                                    <div className={state.chicken_allergy.value === true? "issue-button checked-issue" : "issue-button"}>
                                     
                                                Chicken Allergy
                                             
@@ -371,7 +375,7 @@ const AdvisorFormPage4 = () => {
                                     </label>
 
                                     <label htmlFor="beef_allergy">
-                                    <div className={this.state.beef_allergy.value === true? "issue-button checked-issue" : "issue-button"}>
+                                    <div className={state.beef_allergy.value === true? "issue-button checked-issue" : "issue-button"}>
                                     
                                                Beef Allergy
                                             
@@ -379,7 +383,7 @@ const AdvisorFormPage4 = () => {
                                     </label>
 
                                     <label htmlFor="pork_allergy">
-                                    <div className={this.state.pork_allergy.value === true? "issue-button checked-issue" : "issue-button"}>
+                                    <div className={state.pork_allergy.value === true? "issue-button checked-issue" : "issue-button"}>
                                     
                                                Pork Allergy
                                             
@@ -387,7 +391,7 @@ const AdvisorFormPage4 = () => {
                                     </label>
 
                                     <label htmlFor="grain_sensitive">
-                                    <div className={this.state.grain_sensitive.value === true? "issue-button checked-issue" : "issue-button"}>
+                                    <div className={state.grain_sensitive.value === true? "issue-button checked-issue" : "issue-button"}>
                                     
                                                Grain Sensitive
                                             
@@ -417,10 +421,10 @@ const AdvisorFormPage4 = () => {
                                                     type="checkbox"
                                                     name="environment allergies"
                                                     id="environment_allergies"
-                                                    checked={this.state.environment_allergies.value}
+                                                    checked={state.environment_allergies.value}
                                                     id="environment_allergies"
-                                                    onChange={this.handleIssues}
-                                                    onClick={this.handleIssues}
+                                                    onChange={handleIssues}
+                                                    onClick={handleIssues}
                                                 />
                                                 <span className="checkbox-label">Environmental Allergies</span>
                                             </label>
@@ -431,8 +435,8 @@ const AdvisorFormPage4 = () => {
                                                     type="checkbox"
                                                     name="chewing paws"
                                                     id="chews_paws"
-                                                    checked={this.state.chews_paws.value}
-                                                    onChange={this.handleIssues}
+                                                    checked={state.chews_paws.value}
+                                                    onChange={handleIssues}
                                                 />
                                                 <span className="checkbox-label">Chews Paws</span>
                                             </label>
@@ -443,8 +447,8 @@ const AdvisorFormPage4 = () => {
                                                     type="checkbox"
                                                     name="dry skin"
                                                     id="skin"
-                                                    checked={this.state.skin.value}
-                                                    onChange={this.handleIssues}
+                                                    checked={state.skin.value}
+                                                    onChange={handleIssues}
                                                 />
                                                 <span className="checkbox-label">Dry skin and coat</span>
                                             </label>
@@ -456,9 +460,9 @@ const AdvisorFormPage4 = () => {
                                                     type="checkbox"
                                                     name="joint pain"
                                                     id="joint_pain"
-                                                    checked={this.state.joint_pain.value}
+                                                    checked={state.joint_pain.value}
                                                 
-                                                    onChange={this.handleIssues}
+                                                    onChange={handleIssues}
                                                 />
                                                 <span className="checkbox-label">Joint pain</span>
                                             </label>
@@ -469,8 +473,8 @@ const AdvisorFormPage4 = () => {
                                                     type="checkbox"
                                                     name="anxiety"
                                                     id="anxiety"
-                                                    checked={this.state.anxiety.value}
-                                                    onChange={this.handleIssues}
+                                                    checked={state.anxiety.value}
+                                                    onChange={handleIssues}
 
                                                 />
                                                 <span className="checkbox-label">Anxiety</span>
@@ -483,8 +487,8 @@ const AdvisorFormPage4 = () => {
                                                     type="checkbox"
                                                     name="diarrhea"
                                                     id="diarrhea"
-                                                    checked={this.state.diarrhea.value}
-                                                    onChange={this.handleIssues}
+                                                    checked={state.diarrhea.value}
+                                                    onChange={handleIssues}
                                                 />
                                                 <span className="checkbox-label">Diarrhea</span>
                                             </label>
@@ -495,8 +499,8 @@ const AdvisorFormPage4 = () => {
                                                     type="checkbox"
                                                     name="gas"
                                                     id="gas"
-                                                    checked={this.state.gas.value}
-                                                    onChange={this.handleIssues}
+                                                    checked={state.gas.value}
+                                                    onChange={handleIssues}
                                                 />
                                                 <span className="checkbox-label">Passes gas</span>
                                             </label>
@@ -507,8 +511,8 @@ const AdvisorFormPage4 = () => {
                                                     type="checkbox"
                                                     name="chicken allergy"
                                                     id="chicken_allergy"
-                                                    checked={this.state.chicken_allergy.value}
-                                                    onChange={this.handleIssues}
+                                                    checked={state.chicken_allergy.value}
+                                                    onChange={handleIssues}
                                                 />
                                                 <span className="checkbox-label">Chicken Allergy</span>
                                             </label>
@@ -519,8 +523,8 @@ const AdvisorFormPage4 = () => {
                                                     type="checkbox"
                                                     name="beef allergy"
                                                     id="beef_allergy"
-                                                    checked={this.state.beef_allergy.value}
-                                                    onChange={this.handleIssues}
+                                                    checked={state.beef_allergy.value}
+                                                    onChange={handleIssues}
                                                 />
                                                 <span className="checkbox-label">Beef Allergy</span>
                                             </label>
@@ -531,8 +535,8 @@ const AdvisorFormPage4 = () => {
                                                     type="checkbox"
                                                     name="pork allergy"
                                                     id="pork_allergy"
-                                                    checked={this.state.pork_allergy.value}
-                                                    onChange={this.handleIssues}
+                                                    checked={state.pork_allergy.value}
+                                                    onChange={handleIssues}
                                                 />
                                                 <span className="checkbox-label">Pork Allergy</span>
                                             </label>
@@ -543,8 +547,8 @@ const AdvisorFormPage4 = () => {
                                                     type="checkbox"
                                                     name="grain sensitive"
                                                     id="grain_sensitive"
-                                                    checked={this.state.grain_sensitive.value}
-                                                    onChange={this.handleIssues}
+                                                    checked={state.grain_sensitive.value}
+                                                    onChange={handleIssues}
                                                 />
                                                 <span className="checkbox-label">Grain sensitivity</span>
                                             </label>
@@ -553,7 +557,7 @@ const AdvisorFormPage4 = () => {
                                     </div>
                                
                                         <button className="landing-button"
-                                            onClick={this.handleSubmit}>
+                                            onClick={handleSubmit}>
                                             Show Results
                                     </button>
                                    

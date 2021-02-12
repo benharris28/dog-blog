@@ -148,7 +148,7 @@ const AdvisorFormPage3 = () => {
             // patch dog profile
             DogApiService.updateDog(updatedDog, dog.id)
                 .then(res => {
-                    history.push('/foodadvisor/form/issues')
+                    history.push('/foodadvisor/page-four')
                 })
 
 
