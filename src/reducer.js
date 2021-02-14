@@ -2,7 +2,9 @@ import DogApiService from './services/dog-api-service'
 
 
 export const initialState = {
-    dog: {},
+    dog: {
+      issues: []
+    },
     progress: ''
 
 };
