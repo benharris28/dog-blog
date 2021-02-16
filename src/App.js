@@ -7,6 +7,7 @@ import AdvisorFormPage2 from './routes/categories/nutrition/AdvisorFormPage2'
 import AdvisorFormPage3 from './routes/categories/nutrition/AdvisorFormPage3'
 import AdvisorFormPage4 from './routes/categories/nutrition/AdvisorFormPage4'
 import ResultsSummary from './routes/categories/nutrition/ResultsSummary'
+import FoodSelection from './routes/categories/nutrition/FoodSelection'
 import Header from './components/Header'
 
 function App() {
@@ -47,6 +48,11 @@ function App() {
         exact
         path="/foodadvisor/results/summary"
         component={ResultsSummary} 
+      />
+       <Route 
+        exact
+        path="/foodadvisor/results/food"
+        component={FoodSelection} 
       />
    
     
