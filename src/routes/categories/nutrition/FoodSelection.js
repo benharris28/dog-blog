@@ -4,24 +4,28 @@ import { useStateValue } from '../../../StateProvider'
 import ProgressBar from '../../../components/ProgressBar'
 import DogApiService from '../../../services/dog-api-service'
 import { ResultsHero, CardList } from '../../../components'
-import FoodList from '../../../data/FoodList'
+import foodResults from '../../../data/FoodList'
 
 const FoodSelection = () => {
 
     const history = useHistory();
 
-    const [{ dog, progress }, dispatch] = useStateValue()
+    const [{ dog }, dispatch] = useStateValue()
 
     const [state, setState] = useState({
-        progress: '10',
-        dog: ''
+        current_dog: ''
     })
+
 
     useEffect(() => {
         // Update the document title using the browser API
         window.scrollTo(0, 0);
 
         updateDog()
+
+        setState({ ...state, current_dog: dog})
+
+
     }, []);
 
     
@@ -42,27 +46,33 @@ const FoodSelection = () => {
      
      }
 
-     const dogAttribute = dog.attributes
+  
+     
+     
+    
 
-     const match = (arr, dogAttribute) => dogAttribute.every(v => arr.includes(v));
+     const list = foodResults.foodResults
+     console.log(list)
 
-     // Generate the list of recommended foods
-     const generateFoodRecos = () => {
+     const matchFoods = () => {
+        const dogAttribute = state.current_dog.attributes
+
+        const match = (arr, dogAttribute) => dogAttribute.every(v => arr.includes(v));
         
+        const matchedFoods = list.filter(food => match(food.attribute_list, dogAttribute) === true).sort((a, b) => b.rank_score - a.rank_score).slice(0,3).map(foodResult => "test")
 
-        return FoodList.foodResults.filter(food => match(food.attribute_list, dogAttribute) === true).sort((a, b) => b.rank_score - a.rank_score).slice(0,3).map(f => test)
+        return matchedFoods
      }
 
-     const foodReco = generateFoodRecos()
-
-     console.log(foodReco)
+     
 
     return (
         <div>
             <ProgressBar />
-            
+            {matchFoods()}
             <div>
                 <ResultsHero />
+                
                 <CardList />
             </div>
 
