@@ -18,8 +18,13 @@ const FoodSelection = () => {
     })
 
 
-
+    // List of foods in the database
     const list = foodResults.foodResults
+
+
+    // Compare the array of attributes in the dog object to the array of attributes for each food
+    // Filter if there is an exact match
+    // Create a new array with foods that have exact matches
 
     const matchFoods = () => {
         const dogAttribute = dog.attributes
@@ -63,17 +68,13 @@ const FoodSelection = () => {
      
      }
 
-  
+     
+     // Call the match function to populate the array of foods to pass as props to the food cards
      const newlist = matchFoods()
 
-     console.log(newlist)
+ 
      
     
-
-     
-
-
-     
 
      
 

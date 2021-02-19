@@ -1,0 +1,8 @@
+.cardlist {
+    width: 90%;
+    margin: auto;
+}
+
+.card-deck {
+    justify-content: space-evenly
+}
