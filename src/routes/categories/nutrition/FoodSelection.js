@@ -13,8 +13,27 @@ const FoodSelection = () => {
     const [{ dog }, dispatch] = useStateValue()
 
     const [state, setState] = useState({
-        current_dog: ''
+        foodSelections: []
+
     })
+
+
+
+    const list = foodResults.foodResults
+
+    const matchFoods = () => {
+        const dogAttribute = dog.attributes
+
+        const match = (arr, dogAttribute) => dogAttribute.every(v => arr.includes(v));
+        
+        const matchedFoods = list
+                                .filter(food => match(food.attribute_list, dogAttribute) === true)
+                                .sort((a, b) => b.rank_score - a.rank_score)
+                                .slice(0,3)
+                                .map(foodResult => foodResult)
+
+       return matchedFoods
+    }
 
 
     useEffect(() => {
@@ -23,12 +42,10 @@ const FoodSelection = () => {
 
         updateDog()
 
-        setState({ ...state, current_dog: dog})
-
 
     }, []);
 
-    
+  
     const updateDog = () => {
         // const dogId = localStorage.getItem('dogId') ? localStorage.getItem('dogId') : null
          const dogId = Number(localStorage.getItem('dogId'))
@@ -47,33 +64,27 @@ const FoodSelection = () => {
      }
 
   
-     
+     const newlist = matchFoods()
+
+     console.log(newlist)
      
     
 
-     const list = foodResults.foodResults
-     console.log(list)
+     
 
-     const matchFoods = () => {
-        const dogAttribute = state.current_dog.attributes
 
-        const match = (arr, dogAttribute) => dogAttribute.every(v => arr.includes(v));
-        
-        const matchedFoods = list.filter(food => match(food.attribute_list, dogAttribute) === true).sort((a, b) => b.rank_score - a.rank_score).slice(0,3).map(foodResult => "test")
-
-        return matchedFoods
-     }
+     
 
      
 
     return (
         <div>
             <ProgressBar />
-            {matchFoods()}
+      
             <div>
                 <ResultsHero />
                 
-                <CardList />
+                <CardList foods={newlist}/>
             </div>
 
            
