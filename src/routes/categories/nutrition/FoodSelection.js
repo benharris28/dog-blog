@@ -3,6 +3,7 @@ import { useHistory } from 'react-router'
 import { useStateValue } from '../../../StateProvider'
 import ProgressBar from '../../../components/ProgressBar'
 import DogApiService from '../../../services/dog-api-service'
+import SelectionsApiService from '../../../services/selections-api-service'
 import { ResultsHero, CardList } from '../../../components'
 import foodResults from '../../../data/FoodList'
 
@@ -73,7 +74,18 @@ const FoodSelection = () => {
      const newlist = matchFoods()
 
  
-     
+     // Submit food selection from food card and update selections table in database
+
+     const handleFoodSelection = (food) => {
+        const foodUpdate = {
+            food_selection: food
+        }
+
+        SelectionsApiService.updateSelections(foodUpdate, dog.id)
+
+        history.push('/foodadvisor/results/supplements')
+
+     }
     
 
      
