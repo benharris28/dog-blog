@@ -19,7 +19,7 @@ function FoodCard(props) {
                     <Card.Text  style={{ height: '150px' }}>
                         {data.description_text}
                     </Card.Text>
-                    <Button variant="primary">Select</Button>
+                    <Button variant="primary" onClick={() => props.handleFoodSelection(data.id)}>Select</Button>
                 </Card.Body>
             </Card>
         </div>

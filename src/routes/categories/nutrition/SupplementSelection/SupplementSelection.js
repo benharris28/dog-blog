@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router'
-import { useStateValue } from '../../../StateProvider'
-import ProgressBar from '../../../components/ProgressBar'
-import DogApiService from '../../../services/dog-api-service'
-import SelectionsApiService from '../../../services/selections-api-service'
-import { ResultsHero, CardList } from '../../../components'
-import foodResults from '../../../data/FoodList'
+import { useStateValue } from '../../../../StateProvider'
+import ProgressBar from '../../../../components/ProgressBar'
+import DogApiService from '../../../../services/dog-api-service'
+import SelectionsApiService from '../../../../services/selections-api-service'
+import { ResultsHero, CardList } from '../../../../components'
+import foodResults from '../../../../data/FoodList'
 
-const FoodSelection = () => {
+const SupplementSelection = () => {
 
     const history = useHistory();
 
@@ -97,7 +97,7 @@ const FoodSelection = () => {
             <div>
                 <ResultsHero />
                 
-                <CardList foods={newlist} handleFoodSelection={() => handleFoodSelection()}/>
+                <CardList foods={newlist}/>
             </div>
 
            
@@ -110,4 +110,4 @@ const FoodSelection = () => {
 
 }
 
-export default FoodSelection;
+export default SupplementSelection;
