@@ -5,7 +5,7 @@ import ProgressBar from '../../../../components/ProgressBar'
 import DogApiService from '../../../../services/dog-api-service'
 import SelectionsApiService from '../../../../services/selections-api-service'
 import { ResultsHero, CardList } from '../../../../components'
-import foodResults from '../../../../data/FoodList'
+import supplementResults from '../../../../data/SupplementList'
 
 const SupplementSelection = () => {
 
@@ -13,14 +13,9 @@ const SupplementSelection = () => {
 
     const [{ dog }, dispatch] = useStateValue()
 
-    const [state, setState] = useState({
-        foodSelections: []
-
-    })
-
 
     // List of foods in the database
-    const list = foodResults.foodResults
+    const list = supplementResults.supplementResults
 
 
     // Compare the array of attributes in the dog object to the array of attributes for each food
@@ -32,13 +27,13 @@ const SupplementSelection = () => {
 
         const match = (arr, dogAttribute) => dogAttribute.every(v => arr.includes(v));
         
-        const matchedFoods = list
-                                .filter(food => match(food.attribute_list, dogAttribute) === true)
+        const matchedSupplements = list
+                                .filter(supplement => match(supplement.attribute_list, dogAttribute) === true)
                                 .sort((a, b) => b.rank_score - a.rank_score)
                                 .slice(0,3)
-                                .map(foodResult => foodResult)
+                                .map(supplementResult => supplementResult)
 
-       return matchedFoods
+       return matchedSupplements
     }
 
 
