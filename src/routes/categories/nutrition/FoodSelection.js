@@ -77,6 +77,9 @@ const FoodSelection = () => {
      // Submit food selection from food card and update selections table in database
 
      const handleFoodSelection = (food) => {
+
+        console.log(food)
+
         const foodUpdate = {
             food_selection: food
         }
@@ -97,7 +100,7 @@ const FoodSelection = () => {
             <div>
                 <ResultsHero />
                 
-                <CardList foods={newlist} handleFoodSelection={() => handleFoodSelection()}/>
+                <CardList foods={newlist} handleFoodSelection={handleFoodSelection}/>
             </div>
 
            

@@ -15,11 +15,11 @@ const SupplementSelection = () => {
 
     const [state, setState] = useState({
         progress: '10',
-        selectedSupplements: []
+        selectedSupplements: [],
+        supplementResults: supplementResults.supplementResults
     })
 
-    // List of foods in the database
-    const list = supplementResults.supplementResults
+
 
 
     // Compare the array of attributes in the dog object to the array of attributes for each food
@@ -31,7 +31,7 @@ const SupplementSelection = () => {
 
         const match = (arr, dogAttribute) => dogAttribute.every(v => arr.includes(v));
         
-        const matchedSupplements = list
+        const matchedSupplements = state.supplementResults
                                 .filter(supplement => match(supplement.attribute_list, dogAttribute) === true)
                                 .sort((a, b) => b.rank_score - a.rank_score)
                                 .slice(0,3)
@@ -68,6 +68,7 @@ const SupplementSelection = () => {
      
      }
 
+     console.log(state)
      
      // Call the match function to populate the array of foods to pass as props to the food cards
      const newlist = matchFoods()
@@ -76,7 +77,9 @@ const SupplementSelection = () => {
      // Submit food selection from food card and update selections table in database
 
      const handleSupplements = (id) => {
-        let clonedSupplements = supplementResults
+         console.log('function ran')
+         console.log(id)
+        let clonedSupplements = state.supplementResults
       
         clonedSupplements.forEach((supplement) => {
           if (supplement.id == id)
@@ -103,7 +106,7 @@ const SupplementSelection = () => {
             <div>
                 <ResultsHero />
                 
-                <CardList foods={newlist} handleSupplements={() => handleSupplements()}/>
+                <CardList foods={newlist} handleSupplements={handleSupplements}/>
             </div>
 
            

@@ -6,7 +6,7 @@ import './FoodCard.css'
 
 function FoodCard(props) {
     const { data } = props;
-
+    console.log(data)
     return (
         <div>
             <Card>
@@ -19,23 +19,26 @@ function FoodCard(props) {
                     <Card.Text  style={{ height: '150px' }}>
                         {data.description_text}
                     </Card.Text>
-                    <Button variant="primary" onClick={() => props.handleFoodSelection(data.id)}>Select</Button>
 
-                    <Form>
-                        {['checkbox'].map((type) => (
-                            <div key={`default-${type}`} className="mb-3">
+
+
+                    {data.product_category === "food" &&
+                        <Button variant="primary" onClick={() => props.handleFoodSelection(data.id)}>Select</Button>
+                    }
+
+
+                    {data.product_category === "supplement" &&
+                        <Form>
                             <Form.Check 
-                                type={type}
+                                type="checkbox"
                                 id={data.id}
-                                label={`Add to Mealplan`}
-                                checked={data.checked}
+                                label={"Add to Mealplan"}
                                 onChange={() => props.handleSupplements(data.id)}
                             />
+                        </Form>
+                    }
 
-                           
-                            </div>
-                        ))}
-                    </Form>
+            
                 </Card.Body>
             </Card>
         </div>

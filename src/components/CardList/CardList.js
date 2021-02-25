@@ -1,5 +1,5 @@
 import React from 'react'
-import Card from '../FoodCard'
+import FoodCard from '../FoodCard'
 import CardDeck from 'react-bootstrap/CardDeck'
 import './CardList.css'
 
@@ -11,7 +11,10 @@ function CardList(props) {
         <div className="cardlist">
             TestList
             <CardDeck>
-                {props.foods.map(card => <Card data={card} 
+                {props.foods.map((card,index) => <FoodCard 
+                                                    data={card} 
+                                                    key={index}
+
                                                 handleFoodSelection={props.handleFoodSelection} 
                                                 handleSupplements={props.handleSupplements}/>
                                                 

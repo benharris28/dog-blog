@@ -2,6 +2,7 @@ export default {
     "foodResults": [
     {
         "id": 1,
+        "product_category": "food",
         "attribute_list": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,24,25,26,27,29],
         "highlights": ["Subscription", "Fresh Cooked"],
         "rank_score": 10,
@@ -40,6 +41,7 @@ export default {
     },
     {
         "id": 2,
+        "product_category": "food",
         "attribute_list": [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,28],
         "highlights": ["High Protein"],
         "rank_score": 5,
@@ -79,6 +81,7 @@ export default {
     },
     {
         "id": 3,
+        "product_category": "food",
         "attribute_list": [2,3,4,5,6,7,8,9,10,11,12,19,20,28],
         "highlights": ["Limited Ingredient", "Affordable"],
         "rank_score": 5,
@@ -117,6 +120,7 @@ export default {
     },
     {
         "id": 4,
+        "product_category": "food",
         "attribute_list": [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28],
         "highlights": ["Limited Ingredient", "High Omega 3"],
         "checked": false,
@@ -155,6 +159,7 @@ export default {
     },
     {
         "id": 5,
+        "product_category": "food",
         "attribute_list": [1,4,5,6,7,8,9,10,11,12,13,14,15,16,19,20,21,23,24,25,26,27,28],
         "highlights": ["Puppy Recipe", "High Omega 3", "High Protein"],
         "checked": false,
@@ -193,6 +198,7 @@ export default {
     },
     {
         "id": 6,
+        "product_category": "food",
         "attribute_list": [1,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28],
         "highlights": ["Grain Free", "Puppy Recipe", "High Omega 3"],
         "rank_score": 6,
@@ -231,6 +237,7 @@ export default {
     },
     {
         "id": 7,
+        "product_category": "food",
         "attribute_list": [2,3,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28],
         "highlights": ["High Omega 3"],
         "rank_score": 5,
@@ -269,6 +276,7 @@ export default {
     },
     {
         "id": 8,
+        "product_category": "food",
         "attribute_list": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,27,25,28],
         "highlights": ["Subscription", "Fresh Cooked", "Easy Digestion"],
         "rank_score": 2,
@@ -307,6 +315,7 @@ export default {
     },
     {
         "id": 9,
+        "product_category": "food",
         "attribute_list": [2,3,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28],
         "highlights": ["High Omega 3", "Grain Free"],
         "rank_score": 4,
@@ -345,6 +354,7 @@ export default {
     },
     {
         "id": 10,
+        "product_category": "food",
         "attribute_list": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,29],
         "highlights": ["Allergy Friendly", "Subscription", "Fresh Cooked"],
         "rank_score": 10,
@@ -383,6 +393,7 @@ export default {
     },
     {
         "id": 11,
+        "product_category": "food",
         "attribute_list": [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,29],
         "highlights": ["High Protein"],
         "rank_score": 5,
@@ -423,6 +434,7 @@ export default {
     
     {
         "id": 12,
+        "product_category": "food",
         "attribute_list": [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,29],
         "highlights": ["Limited Ingredient", "High Omega 3"],
         "checked": false,
@@ -461,6 +473,7 @@ export default {
     },
     {
         "id": 13,
+        "product_category": "food",
         "attribute_list": [1,4,5,6,7,8,9,10,11,12,13,14,15,16,19,20,21,23,24,25,26,27,29],
         "highlights": ["Puppy Recipe", "High Omega 3", "High Protein"],
         "checked": false,
@@ -499,6 +512,7 @@ export default {
     },
     {
         "id": 14,
+        "product_category": "food",
         "attribute_list": [1,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,29],
         "highlights": ["Grain Free", "Puppy Recipe", "High Omega 3"],
         "rank_score": 6,
@@ -537,6 +551,7 @@ export default {
     },
     {
         "id": 15,
+        "product_category": "food",
         "attribute_list": [2,3,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,29],
         "highlights": ["High Omega 3"],
         "rank_score": 5,
@@ -576,6 +591,7 @@ export default {
     
     {
         "id": 16,
+        "product_category": "food",
         "attribute_list": [2,3,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,29],
         "highlights": ["High Omega 3", "Grain Free"],
         "rank_score": 4,

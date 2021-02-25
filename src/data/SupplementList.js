@@ -2,6 +2,7 @@ export default {
     "supplementResults": [
         {
             "id": 1,
+            "product_category": "supplement",
             "attribute_list": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28],
             "checked": false,
             "category_id": 2,
@@ -57,6 +58,7 @@ export default {
         },
         {
             "id": 2,
+            "product_category": "supplement",
             "attribute_list": [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,27,27,28],
             "checked": false,
             "category_id": 2,
@@ -110,6 +112,7 @@ export default {
         },
         {
             "id": 3,
+            "product_category": "supplement",
             "attribute_list": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,27,27,28],
             "checked": false,
             "category_id": 2,
@@ -163,6 +166,7 @@ export default {
         },
         {
             "id": 4,
+            "product_category": "supplement",
             "attribute_list": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,29],
             "checked": false,
             "category_id": 2,
@@ -218,6 +222,7 @@ export default {
         },
         {
             "id": 5,
+            "product_category": "supplement",
             "attribute_list": [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,27,27,29],
             "checked": false,
             "category_id": 2,
@@ -271,6 +276,7 @@ export default {
         },
         {
             "id": 6,
+            "product_category": "supplement",
             "attribute_list": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,27,27,29],
             "checked": false,
             "category_id": 2,
