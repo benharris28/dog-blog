@@ -13,6 +13,10 @@ const SupplementSelection = () => {
 
     const [{ dog }, dispatch] = useStateValue()
 
+    const [state, setState] = useState({
+        progress: '10',
+        selectedSupplements: []
+    })
 
     // List of foods in the database
     const list = supplementResults.supplementResults
@@ -71,16 +75,23 @@ const SupplementSelection = () => {
  
      // Submit food selection from food card and update selections table in database
 
-     const handleFoodSelection = (food) => {
-        const foodUpdate = {
-            food_selection: food
-        }
-
-        SelectionsApiService.updateSelections(foodUpdate, dog.id)
-
-        history.push('/foodadvisor/results/supplements')
-
-     }
+     const handleSupplements = (id) => {
+        let clonedSupplements = supplementResults
+      
+        clonedSupplements.forEach((supplement) => {
+          if (supplement.id == id)
+            supplement.checked = !supplement.checked
+        });
+      
+        let selectedSupplements = clonedSupplements.filter(supplement => supplement.checked === true)
+      
+        setState({
+            ...state,
+          supplementResults: clonedSupplements,
+          selectedSupplements: selectedSupplements
+        });
+      
+       }
     
 
      
@@ -92,7 +103,7 @@ const SupplementSelection = () => {
             <div>
                 <ResultsHero />
                 
-                <CardList foods={newlist}/>
+                <CardList foods={newlist} handleSupplements={() => handleSupplements()}/>
             </div>
 
            

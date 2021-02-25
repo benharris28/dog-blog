@@ -1,7 +1,7 @@
 
 import React from 'react'
 import Card from 'react-bootstrap/Card'
-import { Button } from 'react-bootstrap'
+import { Button, Form } from 'react-bootstrap'
 import './FoodCard.css'
 
 function FoodCard(props) {
@@ -20,6 +20,22 @@ function FoodCard(props) {
                         {data.description_text}
                     </Card.Text>
                     <Button variant="primary" onClick={() => props.handleFoodSelection(data.id)}>Select</Button>
+
+                    <Form>
+                        {['checkbox'].map((type) => (
+                            <div key={`default-${type}`} className="mb-3">
+                            <Form.Check 
+                                type={type}
+                                id={data.id}
+                                label={`Add to Mealplan`}
+                                checked={data.checked}
+                                onChange={() => props.handleSupplements(data.id)}
+                            />
+
+                           
+                            </div>
+                        ))}
+                    </Form>
                 </Card.Body>
             </Card>
         </div>

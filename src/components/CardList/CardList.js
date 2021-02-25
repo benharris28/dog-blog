@@ -11,7 +11,11 @@ function CardList(props) {
         <div className="cardlist">
             TestList
             <CardDeck>
-                {props.foods.map(card => <Card data={card} handleFoodSelection={props.handleFoodSelection}/>)}
+                {props.foods.map(card => <Card data={card} 
+                                                handleFoodSelection={props.handleFoodSelection} 
+                                                handleSupplements={props.handleSupplements}/>
+                                                
+                                                )}
             </CardDeck>
         </div>
     )
