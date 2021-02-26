@@ -8,7 +8,7 @@ import './LandingPage.css'
 const LandingPage = () => {
     return (
         <div>
-            <Container>
+           
 
             <div className="block-12 space-between-blocks">
                 <div className="container-xl">
@@ -60,7 +60,7 @@ const LandingPage = () => {
                 </div>
                 <div className="block-12__shape-for-background"></div>
             </div>
-            </Container>
+       
         </div>
     )
 }

@@ -1,0 +1,9 @@
+.blog-card {
+    height: 400px;
+    
+}
+
+.blog-card-image {
+    object-fit: cover;
+    height: 200px;
+}

@@ -12,15 +12,13 @@ const CategoryHero = () => {
       <h1 class="hero__title mb-3">Learning experiences made easy, social and<span class="highlight">interactive</span>.</h1>
       <p class="hero__paragraph mb-5">Increase learner engagement &amp; knowledge retention in higher education and corporate training settings.</p>
       <div class="hero__btns-container"><a class="hero__btn btn btn-primary mb-2 mb-lg-0 mx-1 mx-lg-2" href="#!">Sign up for free</a>
-       <a class="hero__btn btn btn-secondary mb-2 mb-lg-0 mx-1 mx-lg-2" href="#!">
-            Start your 14-days free
-          </a> 
+       
       </div>
     </div>
   </div>
 
     <div class="hero__video-container">
-        Test
+      
     </div>
     
     </header>
