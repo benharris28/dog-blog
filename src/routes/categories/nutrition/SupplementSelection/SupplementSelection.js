@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router'
 import { useStateValue } from '../../../../StateProvider'
+import { Button } from 'react-bootstrap'
 import ProgressBar from '../../../../components/ProgressBar'
 import DogApiService from '../../../../services/dog-api-service'
 import SelectionsApiService from '../../../../services/selections-api-service'
@@ -77,8 +78,7 @@ const SupplementSelection = () => {
      // Submit food selection from food card and update selections table in database
 
      const handleSupplements = (id) => {
-         console.log('function ran')
-         console.log(id)
+      
         let clonedSupplements = state.supplementResults
       
         clonedSupplements.forEach((supplement) => {
@@ -96,6 +96,19 @@ const SupplementSelection = () => {
       
        }
     
+       const handleClick = () => {
+
+        const supplementList = state.selectedSupplements.map(supplement => supplement.id)
+        
+        const supplementUpdate = {
+            supplement_selection: supplementList
+        }
+
+        SelectionsApiService.updateSelections(supplementUpdate, dog.id)
+
+       
+        history.push(`/foodadvisor/mealplan/${dog.id}`)
+       }
 
      
 
@@ -107,6 +120,9 @@ const SupplementSelection = () => {
                 <ResultsHero />
                 
                 <CardList foods={newlist} handleSupplements={handleSupplements}/>
+
+                <Button variant="primary" onClick={handleClick}>Next Step</Button>
+
             </div>
 
            

@@ -9,6 +9,7 @@ import AdvisorFormPage4 from './routes/categories/nutrition/AdvisorFormPage4'
 import ResultsSummary from './routes/categories/nutrition/ResultsSummary'
 import FoodSelection from './routes/categories/nutrition/FoodSelection'
 import SupplementSelection from './routes/categories/nutrition/SupplementSelection/SupplementSelection'
+import MealPlan from './routes/categories/nutrition/MealPlan/MealPlan'
 import Header from './components/Header'
 
 function App() {
@@ -59,6 +60,11 @@ function App() {
         exact
         path="/foodadvisor/results/supplements"
         component={SupplementSelection} 
+      />
+      <Route 
+        exact
+        path="/foodadvisor/mealplan/:id"
+        component={MealPlan} 
       />
    
     
