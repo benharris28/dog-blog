@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router'
 import { useStateValue } from '../../../../StateProvider'
 import { ResultsHero, CardList } from '../../../../components'
-import FoodCard from '../../../../components/FoodCard'
+import MealPlanCard from '../../../../components/MealPlanCard/MealPlanCard'
 import CardDeck from 'react-bootstrap/CardDeck'
+import Container from 'react-bootstrap/Container'
 import DogApiService from '../../../../services/dog-api-service'
 import SelectionsApiService from '../../../../services/selections-api-service'
 import supplementResults from '../../../../data/SupplementList'
@@ -57,26 +58,23 @@ const MealPlan = (props) => {
 
 
     return (
-        <div>
-            Food
+        <div className="cardlist">
+            <Container>
+       
             <CardDeck>
                 
                 {foodResults.foodResults.filter(foodResult => foodResult.id == state.food_selection).map(foodResult => 
-                    <FoodCard data={foodResult}/>
+                    <MealPlanCard data={foodResult} dog={dog} />
                 
                 )}
-                
-            </CardDeck>
-
-            Supplements
-            <CardDeck>
-                
                 {supplementResults.supplementResults.filter(a => state.supplement_selection.includes(a.id)).map(foodResult => 
-                    <FoodCard data={foodResult}/>
+                    <MealPlanCard data={foodResult} dog={dog}/>
                 
                 )}
                 
             </CardDeck>
+            </Container>
+           
 
             
 
