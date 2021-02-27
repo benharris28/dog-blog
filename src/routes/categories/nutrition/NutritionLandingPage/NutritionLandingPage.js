@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container'
 import CardDeck from 'react-bootstrap/CardDeck'
 import { Link } from 'react-router-dom'
 import CategoryHero from '../../../../components/CategoryHero/CategoryHero'
+import HeroWithTabs from '../../../../components/HeroWithTabs/HeroWithTabs'
 import BlogCard from '../../../../components/BlogCard'
 
 import React from 'react'
@@ -12,7 +13,7 @@ import React from 'react'
 const NutritionLandingPage = () => {
     return (
         <div>
-            <CategoryHero />
+            <HeroWithTabs />
 
             <div className="section-container">
                 <Container>
