@@ -23,15 +23,19 @@ const BlogPost = (props) => {
 
     console.log(id)
 
-    const articleToDisplay = posts.filter(post => post.article_name == id)
-    console.log()
+    // Filter the articles and match based on parameter in path
+
+    const articleFilter = posts.filter(post => post.article_name == id)
+    const articleToDisplay = articleFilter[0]
+    
+    console.log(articleToDisplay[0])
 
     // filter posts list based on parameters in path
 
     return (
         <div>
             Dog Blog
-            {articleToDisplay.title}
+            <h1>{articleToDisplay.title}</h1>
             {posts.content}
         </div>
     )
