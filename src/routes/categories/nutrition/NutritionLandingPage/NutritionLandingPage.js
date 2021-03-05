@@ -6,8 +6,10 @@ import CardDeck from 'react-bootstrap/CardDeck'
 import Media from 'react-bootstrap/Media'
 import { Link } from 'react-router-dom'
 import CategoryHero from '../../../../components/CategoryHero/CategoryHero'
+import BlogArticleListWithFeature from '../../../../components/BlogArticleListWithFeature/BlogArticleListWithFeature'
 import HeroWithTabs from '../../../../components/HeroWithTabs/HeroWithTabs'
 import BlogCard from '../../../../components/BlogCard'
+import './NutritionLandingPage.css'
 
 import React from 'react'
 
@@ -59,50 +61,8 @@ const NutritionLandingPage = () => {
             </div>
 
             <div className="section-container">
-
-                <Container>
-                    <div className="section-title">
-                        <h2>Best of nutrition</h2>
-                    </div>
-
-                    <div>
-
-                    <Media className="article-card-small">
-                        <img
-                            width={64}
-                            height={64}
-                            className="mr-3 article-image-small"
-                            src="https://res.cloudinary.com/dhkmle6ei/image/upload/v1609618212/iStock-1213516345_arz9cd.jpg"
-                            alt="Generic placeholder"
-                        />
-                        <Media.Body>
-                            <h5>Media Heading</h5>
-                            <p>
-                                Test description for article link
-                            </p>
-                            <Card.Link variant="primary">Go somewhere</Card.Link>
-                        </Media.Body>
-                    </Media>
-                    <Media>
-                        <img
-                            width={64}
-                            height={64}
-                            className="mr-3"
-                            src="https://res.cloudinary.com/dhkmle6ei/image/upload/v1609618212/iStock-1213516345_arz9cd.jpg"
-                            alt="Generic placeholder"
-                        />
-                        <Media.Body>
-                            <h5>Media Heading</h5>
-                            <p>
-                                Test description for article link
-                            </p>
-                            <Card.Link variant="primary">Go somewhere</Card.Link>
-                        </Media.Body>
-                    </Media>
-                    </div>
-
-                  
-                </Container>
+                <BlogArticleListWithFeature />
+               
             </div>
 
 

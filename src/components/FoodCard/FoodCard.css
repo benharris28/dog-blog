@@ -10,7 +10,7 @@
 }
 
 @media(min-width: 767px) {
-    .card {
+    .foodcard {
         max-width: 300px;
     }
 

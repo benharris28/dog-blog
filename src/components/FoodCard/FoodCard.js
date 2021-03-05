@@ -9,7 +9,7 @@ function FoodCard(props) {
     console.log(data)
     return (
         <div>
-            <Card>
+            <Card className="foodcard">
                 <Card.Header>
                     <Card.Img variant="top" src={data.image} />
                 </Card.Header>
