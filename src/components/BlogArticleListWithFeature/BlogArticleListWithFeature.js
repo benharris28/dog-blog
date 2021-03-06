@@ -16,7 +16,7 @@ const BlogArticleListWithFeature = (props) => {
 
                 <div className="article-container">
                     <div className="highlight-card">
-                        <Card className="article-card">
+                        <Card className="article-card feature">
                         
                                 <Card.Img variant="top" src="https://res.cloudinary.com/dhkmle6ei/image/upload/v1609618212/iStock-1213516345_arz9cd.jpg" />
                          

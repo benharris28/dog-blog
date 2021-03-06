@@ -1,4 +1,5 @@
 import React from 'react'
+import './CategoryHero.css'
 
 const CategoryHero = (props) => {
     return (
