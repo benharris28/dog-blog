@@ -7,13 +7,24 @@ import Media from 'react-bootstrap/Media'
 import { Link } from 'react-router-dom'
 import CategoryHero from '../../../../components/CategoryHero/CategoryHero'
 import BlogArticleListWithFeature from '../../../../components/BlogArticleListWithFeature/BlogArticleListWithFeature'
+import bestOfArticles from './data'
+import { guides } from './data'
 import HeroWithTabs from '../../../../components/HeroWithTabs/HeroWithTabs'
 import BlogCard from '../../../../components/BlogCard'
 import './NutritionLandingPage.css'
 
 import React from 'react'
 
+
+
 const NutritionLandingPage = () => {
+    const featureArticle = bestOfArticles.featureArticle[0]
+
+    const articleList = bestOfArticles.bestOfArticles
+
+    console.log(articleList)
+
+   
     return (
         <div>
             <CategoryHero title="Nutrition Section" subtitle="This is the nutrition section" />
@@ -25,43 +36,30 @@ const NutritionLandingPage = () => {
                     </div>
 
                     <CardDeck>
+                        {guides.guideList.map(guide =>
+                            <Card key={guide.id}>
+                            <Card.Header>{guide.title}</Card.Header>
+                            <Card.Body>
+                                <Card.Title>{guide.title}</Card.Title>
+                                <Card.Text>
+                                    {guide.description}
+                            </Card.Text>
+                                <Link to={guide.link}>
+                                    <Button variant="primary">{guide.button_text}</Button>
+                                </Link>
+                            </Card.Body>
+                        </Card> 
+                        )}
 
-                        <Card>
-                            <Card.Header>Find the best food</Card.Header>
-                            <Card.Body>
-                                <Card.Title>Food Matchmaker</Card.Title>
-                                <Card.Text>
-                                    With supporting text below as a natural lead-in to additional content.
-                            </Card.Text>
-                                <Button variant="primary">Go somewhere</Button>
-                            </Card.Body>
-                        </Card>
-                        <Card>
-                            <Card.Header>Treat reviews</Card.Header>
-                            <Card.Body>
-                                <Card.Title>Special title treatment</Card.Title>
-                                <Card.Text>
-                                    With supporting text below as a natural lead-in to additional content.
-                            </Card.Text>
-                                <Button variant="primary">Go somewhere</Button>
-                            </Card.Body>
-                        </Card>
-                        <Card>
-                            <Card.Header>Treat reviews</Card.Header>
-                            <Card.Body>
-                                <Card.Title>Special title treatment</Card.Title>
-                                <Card.Text>
-                                    With supporting text below as a natural lead-in to additional content.
-                            </Card.Text>
-                                <Button variant="primary">Go somewhere</Button>
-                            </Card.Body>
-                        </Card>
+                    
+                     
+                       
                     </CardDeck>
                 </Container>
             </div>
 
             <div className="section-container">
-                <BlogArticleListWithFeature />
+                <BlogArticleListWithFeature feature={featureArticle} articles={articleList}/>
                
             </div>
 
