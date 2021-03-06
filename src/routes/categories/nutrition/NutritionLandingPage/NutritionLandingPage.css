@@ -8,5 +8,20 @@
     margin-bottom: 20px;
 }
 
+.guide-card {
+    height: 300px;
+    border: 0px;
+}
 
+.blue {
+    background-color: #a7dcfa;
+}
+
+.purple {
+    background-color: #b8c5f6;
+}
+
+.yellow {
+    background-color: #ffebc3;
+}
 

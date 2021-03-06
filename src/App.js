@@ -1,4 +1,6 @@
+import React, { useState, useEffect } from 'react';
 import './App.css';
+import { useStateValue } from './StateProvider'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import LandingPage from './routes/LandingPage/LandingPage'
 import NutritionLandingPage from './routes/categories/nutrition/NutritionLandingPage/NutritionLandingPage'
@@ -14,6 +16,38 @@ import BlogPost from './routes/BlogPosts/BlogPost'
 import Header from './components/Header'
 
 function App() {
+
+  const [{ dog, progress, width }, dispatch] = useStateValue()
+
+  const [dimensions, setDimensions] = React.useState({ 
+    height: window.innerHeight,
+    width: window.innerWidth
+  })
+  
+  useEffect(() => {
+    function handleResize() {
+      setDimensions({
+        height: window.innerHeight,
+        width: window.innerWidth
+      })
+
+      dispatch({ type: 'UPDATE_WIDTH', payload: dimensions.width })
+    
+}
+
+    window.addEventListener('resize', handleResize)
+    
+
+    return _ => {
+      window.removeEventListener('resize', handleResize)
+
+      
+    
+}
+  })
+
+  console.log(dimensions)
+
   return (
     <Router>
       <Header />

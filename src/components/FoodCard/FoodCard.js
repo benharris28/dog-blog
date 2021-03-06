@@ -11,7 +11,7 @@ function FoodCard(props) {
         <div>
             <Card className="foodcard">
                 <Card.Header>
-                    <Card.Img variant="top" src={data.image} />
+                    <Card.Img className="foodcard-image" variant="top" src={data.image} />
                 </Card.Header>
                 
                 <Card.Body>

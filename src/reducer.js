@@ -6,7 +6,8 @@ export const initialState = {
       issues: [],
       attributes: []
     },
-    progress: ''
+    progress: '',
+    width: ''
 
 };
 
@@ -23,6 +24,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         dog: action.payload
+      }
+      case 'UPDATE_WIDTH':
+      return {
+        ...state,
+        width: action.payload
       }
     default:
       return state;

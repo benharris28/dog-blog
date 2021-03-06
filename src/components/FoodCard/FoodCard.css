@@ -1,4 +1,4 @@
-.card-img-top {
+.foodcard-image {
     height: 300px;
     width: auto;
   
@@ -14,7 +14,7 @@
         max-width: 300px;
     }
 
-    .card-img-top {
+    .foodcard-image {
         height: 300px;
       
     }

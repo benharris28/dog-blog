@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react'
 import { Button, Card } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap'
 import Jumbotron from 'react-bootstrap/Jumbotron'
@@ -7,23 +8,26 @@ import Media from 'react-bootstrap/Media'
 import { Link } from 'react-router-dom'
 import CategoryHero from '../../../../components/CategoryHero/CategoryHero'
 import BlogArticleListWithFeature from '../../../../components/BlogArticleListWithFeature/BlogArticleListWithFeature'
+import BlogArticleList from '../../../../components/BlogArticleList/BlogArticleList'
 import bestOfArticles from './data'
 import { guides } from './data'
-import HeroWithTabs from '../../../../components/HeroWithTabs/HeroWithTabs'
-import BlogCard from '../../../../components/BlogCard'
+import { useStateValue } from '../../../../StateProvider'
 import './NutritionLandingPage.css'
 
-import React from 'react'
+
 
 
 
 const NutritionLandingPage = () => {
+    const [{ dog, progress, width }, dispatch] = useStateValue()
+
     const featureArticle = bestOfArticles.featureArticle[0]
 
     const articleList = bestOfArticles.bestOfArticles
 
     console.log(articleList)
 
+  
    
     return (
         <div>
@@ -37,8 +41,8 @@ const NutritionLandingPage = () => {
 
                     <CardDeck>
                         {guides.guideList.map(guide =>
-                            <Card key={guide.id}>
-                            <Card.Header>{guide.title}</Card.Header>
+                            <Card className={guide.class} key={guide.id}>
+                       
                             <Card.Body>
                                 <Card.Title>{guide.title}</Card.Title>
                                 <Card.Text>
@@ -59,7 +63,13 @@ const NutritionLandingPage = () => {
             </div>
 
             <div className="section-container">
-                <BlogArticleListWithFeature feature={featureArticle} articles={articleList}/>
+                {width < 700 && 
+                    <BlogArticleListWithFeature feature={featureArticle} articles={articleList}/>
+                }
+
+                {width >= 700 && 
+                    <BlogArticleList articles={articleList}/>
+                }
                
             </div>
 
