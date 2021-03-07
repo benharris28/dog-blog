@@ -1,5 +1,7 @@
 import React from 'react'
 import Breadcrumb from 'react-bootstrap/Breadcrumb'
+import Container from 'react-bootstrap/Container'
+import './BlogPost.css'
 
 const BlogPost = (props) => {
 
@@ -8,14 +10,13 @@ const BlogPost = (props) => {
             id: 1,
             article_name: "first-blog-post",
             hero_image: "test",
-            title: "test",
-            subtitle: "Test Substitle",
+            title: "Fresh food vs. Kibble",
+            subtitle: "Making sense of the different types of dog food",
             content: "test",
             display_matchmaker: true,
             related_articles: [1, 2, 3],
-            content_block_1: {
-                title: "test content block 1",
-                link_url: "www.test.com"
+            content: {
+               
             }
         }
     ]
@@ -35,16 +36,45 @@ const BlogPost = (props) => {
 
     return (
         <div>
-            <Breadcrumb>
+           
+
+            <Container>
+
+            <Breadcrumb className="vertical-space">
                 <Breadcrumb.Item href="#">Home</Breadcrumb.Item>
                 <Breadcrumb.Item href="https://getbootstrap.com/docs/4.0/components/breadcrumb/">
-                    Library
+                    Nutrition
                 </Breadcrumb.Item>
-                <Breadcrumb.Item active>Data</Breadcrumb.Item>
+                <Breadcrumb.Item active>{articleToDisplay.title}</Breadcrumb.Item>
             </Breadcrumb>
-            Dog Blog
-            <h1>{articleToDisplay.title}</h1>
-            {posts.content}
+
+            <h1 className="vertical-space">{articleToDisplay.title}</h1>
+
+            <div className="blog-hero-image">
+               
+                    <img className="picture" src="https://res.cloudinary.com/dhkmle6ei/image/upload/v1615006626/Blue_Grotto_Pets_and_Animals_Business_Advertising_Website_mf45gs.png" alt="Flowers" />
+            
+            </div>
+
+            <div className="blog-intro vertical-space">
+                <p>This is the blog into section</p>
+            </div>
+
+            <div className="article-content">
+                <h2>Kibble</h2>
+                <img className="article-picture" src="https://res.cloudinary.com/dhkmle6ei/image/upload/v1615006626/Blue_Grotto_Pets_and_Animals_Business_Advertising_Website_mf45gs.png" alt="Flowers" />
+                <p>This is information about kibble</p>
+            </div>
+            <div className="article-content">
+                <h2>Kibble</h2>
+                <img className="article-picture" src="https://res.cloudinary.com/dhkmle6ei/image/upload/v1615006626/Blue_Grotto_Pets_and_Animals_Business_Advertising_Website_mf45gs.png" alt="Flowers" />
+                <p>This is information about kibble</p>
+            </div>
+
+          
+
+            </Container>
+        
         </div>
     )
 }

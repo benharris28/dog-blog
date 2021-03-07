@@ -2,6 +2,10 @@ body {
   box-sizing: border-box;
 }
 
+.vertical-space {
+  margin-top: 20px;
+}
+
 .test {
   padding: 10px;
   width: 90%;
